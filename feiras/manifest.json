@@ -1,0 +1,10 @@
+{
+  "name": "eCatálogos - Prospecção de Feiras",
+  "short_name": "eCatálogos",
+  "start_url": "./feiras.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#7200b8",
+  "description": "Cadastro de contatos comerciais com fila offline e sincronização com Google Planilhas"
+}
