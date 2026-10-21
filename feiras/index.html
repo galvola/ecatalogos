@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <meta content="#7200b8" name="theme-color"/>
+  <title>
+   Prospecção Feiras | eCatálogos
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <script>
+   
+    tailwind.config = {
+
+      theme: {
+
+        extend: {
+
+          colors: {
+
+            brand: {
+
+              50: '#faf5ff', 100: '#f3e8ff', 500: '#a21caf',
+
+              600: '#8612b5', 700: '#7200b8', 800: '#5b078e'
+
+            }
+
+          },
+
+          boxShadow: {
+
+            soft: '0 20px 60px -25px rgba(76, 29, 149, .25)'
+
+          }
+
+        }
+
+      }
+
+    };
+
+
+  
+  </script>
+  <style>
+   
+    body { background: radial-gradient(circle at top left, #f3e8ff 0, #f8fafc 42%, #eef2ff 100%); }
+
+    input, select, textarea { outline: none; }
+
+    .field { width:100%; border:1px solid #dbe2ea; border-radius:.8rem; padding:.72rem .85rem; background:#fff; color:#172033; transition: box-shadow .15s, border-color .15s; }
+
+    .field:focus { border-color:#a21caf; box-shadow:0 0 0 3px rgba(162,28,175,.12); }
+
+    .field-label { display:block; font-size:.82rem; font-weight:600; color:#475569; margin-bottom:.4rem; }
+
+    .section-title { font-size:.82rem; font-weight:750; color:#1e293b; }
+
+    /* Layout compacto, sem sacrificar a área de toque no celular */
+
+    .field { padding:.48rem .65rem; border-radius:.55rem; font-size: .82rem; min-height: 36px; }
+
+    .field-label { font-size:.72rem; margin-bottom:.2rem; }
+
+    textarea.field { min-height: 55px; }
+
+    @media (max-width: 639px) { .field { min-height: 42px; font-size: 14px; } }
+
+    .compact-check { display:flex; align-items:center; gap:.4rem; padding:.45rem .55rem; border:1px solid #e2e8f0; border-radius:.6rem; background:#fff; font-size:.76rem; cursor:pointer; }
+
+    .compact-check:has(input:checked) { border-color:#a21caf; background:#faf5ff; color:#5b078e; }
+
+    .compact-check input { accent-color:#7200b8; width:15px; height:15px; flex-shrink:0; }
+
+
+
+
+  
+  </style>
+ </head>
+ <body class="min-h-screen text-slate-800 antialiased">
+  <header class="bg-gradient-to-r from-brand-800 via-brand-700 to-fuchsia-600 text-white shadow-lg">
+   <div class="mx-auto flex max-w-7xl items-center px-4 py-3 sm:px-6">
+    <div class="flex items-center gap-3">
+     <!-- Logo eCatálogos 1:1 -->
+     <img alt="Logo eCatálogos" class="w-11 h-11 sm:w-12 sm:h-12 aspect-square object-contain rounded-xl shadow-md shrink-0" src="logo.png"/>
+     <!-- Informações -->
+     <div class="flex flex-col justify-center">
+      <p class="text-xs font-semibold uppercase tracking-[.18em] text-purple-100">
+       eCatálogos
+      </p>
+      <h1 class="text-base font-bold leading-tight sm:text-lg">
+       Prospecção de Feiras
+      </h1>
+     </div>
+    </div>
+   </div>
+  </header>
+  <main class="mx-auto max-w-7xl px-3 py-3 sm:px-6 sm:py-4">
+   <div class="mb-3 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+    <div>
+     <h2 class="text-lg font-extrabold tracking-tight text-slate-900 sm:text-xl">
+      Novo contato comercial
+     </h2>
+     <p class="mt-1 max-w-2xl text-xs text-slate-600">
+      Registre empresas conhecidas nas feiras e organize os próximos passos da prospecção.
+     </p>
+    </div>
+   </div>
+   <div aria-live="polite" class="hidden fixed top-4 right-4 left-4 sm:left-auto sm:w-[390px] z-50 rounded-xl border px-4 py-3 text-sm shadow-2xl" id="notice" role="status">
+   </div>
+   <form class="overflow-hidden rounded-2xl border border-white bg-white shadow-soft" id="leadForm">
+    <div class="border-b border-slate-100 bg-slate-50/80 px-4 py-2 sm:px-5">
+     <div class="flex items-center justify-between gap-3">
+      <div>
+       <h3 class="font-bold text-slate-900">
+        Dados da empresa
+       </h3>
+       <p class="mt-0.5 text-xs text-slate-500">
+        Os campos com * são obrigatórios.
+       </p>
+      </div>
+      <span class="rounded-lg bg-purple-100 px-2 py-1 text-xs font-bold text-brand-800">
+       Cadastro rápido
+      </span>
+     </div>
+    </div>
+    <div class="space-y-3 p-3 sm:p-5">
+     <section>
+      <h4 class="section-title mb-2 flex items-center gap-2">
+       <span class="flex h-5 w-5 items-center justify-center rounded-lg bg-purple-100 text-sm text-brand-700">
+        1
+       </span>
+       Identificação
+      </h4>
+      <div class="grid grid-cols-2 gap-x-3 gap-y-2 lg:grid-cols-4">
+       <label>
+        <span class="field-label">
+         Feira
+        </span>
+        <select class="field" id="feiraSelect" name="feira" required="">
+         <option value="">
+          Carregando feiras...
+         </option>
+        </select>
+       </label>
+       <label>
+        <span class="field-label">
+         Empresa *
+        </span>
+        <input class="field" maxlength="180" name="empresa" placeholder="Nome da empresa" required=""/>
+       </label>
+       <label>
+        <span class="field-label">
+         Ramo
+        </span>
+        <input class="field" name="ramo" placeholder="Ex.: Distribuidor"/>
+       </label>
+       <label>
+        <span class="field-label">
+         Nome do contato
+        </span>
+        <input class="field" name="nome" placeholder="Nome e sobrenome"/>
+       </label>
+       <label>
+        <span class="field-label">
+         Cargo
+        </span>
+        <input class="field" name="cargo" placeholder="Ex.: Gerente comercial"/>
+       </label>
+       <label>
+        <span class="field-label">
+         Telefone / WhatsApp
+        </span>
+        <input class="field" name="telefone" placeholder="(00) 00000-0000" type="tel"/>
+       </label>
+      </div>
+     </section>
+     <section>
+      <h4 class="section-title mb-2 flex items-center gap-2">
+       <span class="flex h-5 w-5 items-center justify-center rounded-lg bg-purple-100 text-sm text-brand-700">
+        2
+       </span>
+       Perfil comercial
+      </h4>
+      <div class="grid grid-cols-2 gap-x-3 gap-y-2 lg:grid-cols-4">
+       <label>
+        <span class="field-label">
+         ERP utilizado
+        </span>
+        <input class="field" name="erp" placeholder="Nome do ERP"/>
+       </label>
+       <label>
+        <span class="field-label">
+         Possui aplicativo?
+        </span>
+        <select class="field" id="possuiApp" name="possuiApp">
+         <option value="">
+          Selecione...
+         </option>
+         <option>
+          Sim
+         </option>
+         <option>
+          Não
+         </option>
+         <option>
+          Em desenvolvimento
+         </option>
+         <option>
+          Não informado
+         </option>
+        </select>
+       </label>
+       <label class="hidden" id="nomeAppBox">
+        <span class="field-label">
+         Nome do aplicativo *
+        </span>
+        <input class="field" id="nomeApp" maxlength="120" name="nomeApp" placeholder="Qual aplicativo utiliza?"/>
+       </label>
+       <label>
+        <span class="field-label">
+         Número de representantes
+        </span>
+        <input class="field" min="0" name="representantes" placeholder="Ex.: 15" step="1" type="number"/>
+       </label>
+       <label>
+        <span class="field-label">
+         Número de lojistas
+        </span>
+        <input class="field" min="0" name="lojistas" placeholder="Ex.: 120" step="1" type="number"/>
+       </label>
+       <fieldset class="col-span-2">
+        <legend class="field-label">
+         Produtos desejados (selecione um ou mais)
+        </legend>
+        <div class="grid grid-cols-1 gap-1.5 rounded-lg border border-slate-200 bg-slate-50 p-2 sm:grid-cols-3">
+         <label class="compact-check">
+          <input name="produtosSelecionados" type="checkbox" value="Força de Venda"/>
+          Força de Venda
+         </label>
+         <label class="compact-check">
+          <input name="produtosSelecionados" type="checkbox" value="eCommerce B2B"/>
+          eCommerce B2B
+         </label>
+         <label class="compact-check">
+          <input name="produtosSelecionados" type="checkbox" value="Link eCommerce +PDV"/>
+          Link eCommerce +PDV
+         </label>
+        </div>
+       </fieldset>
+      </div>
+     </section>
+     <section>
+      <h4 class="section-title mb-2 flex items-center gap-2">
+       <span class="flex h-5 w-5 items-center justify-center rounded-lg bg-purple-100 text-sm text-brand-700">
+        3
+       </span>
+       Acompanhamento
+      </h4>
+      <div class="grid grid-cols-1 gap-x-3 gap-y-2 grid-cols-2">
+       <label>
+        <span class="field-label">
+         Status da prospecção
+        </span>
+        <select class="field" name="status">
+         <option value="">
+          Selecione...
+         </option>
+         <option>
+          Novo contato
+         </option>
+         <option>
+          Em negociação
+         </option>
+         <option>
+          Aguardando retorno
+         </option>
+         <option>
+          Reunião agendada
+         </option>
+         <option>
+          Convertido
+         </option>
+         <option>
+          Perdido
+         </option>
+        </select>
+       </label>
+       <label>
+        <span class="field-label">
+         Próximo contato
+        </span>
+        <input class="field" name="proximoContato" type="date"/>
+       </label>
+       <label class="col-span-2">
+        <span class="field-label">
+         Observações
+        </span>
+        <textarea class="field resize-y" maxlength="3000" name="observacao" placeholder="Interesses, necessidades, pontos discutidos e próximos passos..."></textarea>
+       </label>
+      </div>
+     </section>
+     <div class="flex flex-col-reverse gap-2 border-t border-slate-100 pt-3 sm:flex-row sm:items-center sm:justify-between">
+      <button class="rounded-xl border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-600 transition hover:bg-slate-50" type="reset">
+       Limpar formulário
+      </button>
+      <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-700 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-purple-200 transition hover:bg-brand-800 disabled:cursor-wait disabled:opacity-60" id="submitBtn" type="submit">
+       <span id="btnText">
+        Cadastrar empresa
+       </span>
+       <span aria-hidden="true">
+        →
+       </span>
+      </button> 
+     </div>
+     <p class="text-xs leading-relaxed text-slate-500">
+      Link para o Google Planilhas: <a href="https://docs.google.com/spreadsheets/d/1Oy1rGFE9TiD4Y8uRy5Y6w6VM4e6gGp1J-tZO-SbCbkg/edit?gid=0#gid=0" target="_blank">Clqiue Aqui</a>.
+    </p>
+    </div>
+   </form>
+
+  </main>
+  <script>
+   
+    // IMPORTANTE:
+
+    // 1) Publique o Apps Script como Aplicativo da Web.
+
+    // 2) Use a URL terminada em /exec (não /dev).
+
+    // 3) Para testar, substitua esta URL pela URL /exec da sua implantação.
+
+    const API_URL = 'https://script.google.com/macros/s/AKfycbwQ0_1eFa6jgMkHdZLRbyh_WarPLsA8zk9mpC8edUgOTH9TaZEuW-EKBkJdkBZnbE8h/exec';
+
+
+
+    const feiraSelect = document.getElementById('feiraSelect');
+
+
+
+
+    // Busca somente as opções da aba Configurações (coluna A, a partir de A2).
+
+    function carregarFeiras() {
+
+      const callback = 'receberFeiras_' + Date.now();
+
+      const script = document.createElement('script');
+
+      let finalizado = false;
+
+      const encerrar = (erro) => {
+
+        if (finalizado) return;
+
+        finalizado = true;
+
+        clearTimeout(timeout);
+
+        script.remove();
+
+        delete window[callback];
+
+        if (erro) {
+
+          feiraSelect.replaceChildren(new Option('Erro ao carregar feiras — atualize a página', ''));
+
+          feiraSelect.disabled = true;
+
+          showNotice(erro, 'error');
+
+        }
+
+      };
+
+      const timeout = setTimeout(() => encerrar('Não foi possível carregar as feiras. Confira a implantação /exec e a aba Configurações.'), 12000);
+
+      window[callback] = (resposta) => {
+
+        if (finalizado) return;
+
+        if (!resposta || !resposta.sucesso || !Array.isArray(resposta.feiras)) {
+
+          encerrar(resposta?.mensagem || 'Falha ao buscar feiras.');
+
+          return;
+
+        }
+
+        feiraSelect.replaceChildren(new Option('Selecione a feira...', ''));
+
+        resposta.feiras.forEach(nome => feiraSelect.add(new Option(nome, nome)));
+
+        feiraSelect.disabled = false;
+
+        encerrar();
+
+        if (!resposta.feiras.length) showNotice('A aba Configurações não possui feiras em A2:A.', 'warning');
+
+      };
+
+      script.onerror = () => encerrar('Erro ao acessar o Apps Script. Verifique a URL /exec e o acesso da implantação.');
+
+      script.src = API_URL + '?acao=feiras&callback=' + encodeURIComponent(callback);
+
+      document.head.appendChild(script);
+
+    }
+
+    feiraSelect.disabled = true;
+
+    carregarFeiras();
+
+
+
+    const form = document.getElementById('leadForm');
+
+    const button = document.getElementById('submitBtn');
+
+    const buttonText = document.getElementById('btnText');
+
+    const notice = document.getElementById('notice');
+
+    const possuiApp = document.getElementById('possuiApp');
+
+    const nomeApp = document.getElementById('nomeApp');
+
+    const nomeAppBox = document.getElementById('nomeAppBox');
+
+    function atualizarApp() {
+
+      const mostrar = possuiApp.value === 'Sim';
+
+      nomeAppBox.classList.toggle('hidden', !mostrar);
+
+      nomeApp.required = mostrar;
+
+      if (!mostrar) nomeApp.value = '';
+
+    }
+
+    possuiApp.addEventListener('change', atualizarApp);
+
+    form.addEventListener('reset', () => setTimeout(() => { atualizarApp(); }, 0));
+
+    atualizarApp();
+
+
+
+
+
+    let toastTimer;
+    function showNotice(message, type) {
+      clearTimeout(toastTimer);
+      notice.className = 'fixed top-4 right-4 left-4 sm:left-auto sm:w-[390px] z-50 rounded-xl border px-4 py-3 text-sm shadow-2xl ' +
+        (type === 'success' ? 'border-green-200 bg-green-50 text-green-900' :
+         type === 'warning' ? 'border-amber-200 bg-amber-50 text-amber-900' :
+         'border-red-200 bg-red-50 text-red-900');
+      notice.replaceChildren();
+      const wrap = document.createElement('div');
+      wrap.className = 'flex items-start gap-3';
+      const symbol = document.createElement('span');
+      symbol.className = 'text-xl leading-none';
+      symbol.textContent = type === 'success' ? '✓' : type === 'warning' ? '!' : '×';
+      const messageNode = document.createElement('span');
+      messageNode.className = 'flex-1 leading-snug';
+      messageNode.textContent = message;
+      const close = document.createElement('button');
+      close.type = 'button';
+      close.className = 'text-lg leading-none opacity-70 hover:opacity-100';
+      close.setAttribute('aria-label', 'Fechar aviso');
+      close.textContent = '×';
+      close.addEventListener('click', () => { clearTimeout(toastTimer); notice.classList.add('hidden'); });
+      wrap.append(symbol, messageNode, close);
+      notice.append(wrap);
+      toastTimer = setTimeout(() => notice.classList.add('hidden'), 6000);
+    }
+
+    function setSending(isSending) {
+
+      button.disabled = isSending;
+
+      buttonText.textContent = isSending ? 'Enviando...' : 'Cadastrar empresa';
+
+    }
+
+
+
+    form.addEventListener('submit', async (event) => {
+
+      event.preventDefault();
+
+      if (!form.reportValidity()) return;
+
+
+
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      data.empresa = (data.empresa || '').trim();
+
+      if (!data.feira) { showNotice('Selecione uma feira.', 'error'); return; }
+
+      // Envia todos os produtos em uma única célula da coluna L.
+
+      data.produtoDesejado = [...form.querySelectorAll('input[name="produtosSelecionados"]:checked')]
+
+        .map(input => input.value).join(', ');
+
+      delete data.produtosSelecionados;
+
+      // Mantém compatibilidade com a coluna I (App) e o Apps Script atual.
+
+      data.app = data.possuiApp === 'Sim'
+
+        ? 'Sim - ' + data.nomeApp.trim()
+
+        : (data.possuiApp || '');
+
+      delete data.possuiApp;
+
+      delete data.nomeApp;
+
+
+
+      if (!data.empresa) {
+
+        showNotice('Informe o nome da empresa.', 'error');
+
+        return;
+
+      }
+
+
+
+      if (!API_URL || !API_URL.endsWith("/exec")) {
+
+        showNotice('Configure a URL publicada do Apps Script, terminada em /exec.', 'error');
+
+        return;
+
+      }
+
+
+
+      setSending(true);
+
+      try {
+
+        // Apps Script ContentService não permite configurar cabeçalhos CORS.
+
+        // O modo no-cors permite enviar o POST de uma página GitHub Pages,
+
+        // mas o navegador não libera a resposta para leitura. Portanto,
+
+        // não é possível confirmar o resultado automaticamente nesta página.
+
+        await fetch(API_URL, {
+
+          method: 'POST',
+
+          mode: 'no-cors',
+
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+
+          body: JSON.stringify(data)
+
+        });
+
+
+
+        showNotice(
+
+          'Envio concluído no navegador. Confira na planilha se o cadastro foi gravado; a API não permite confirmar o salvamento neste modo.',
+
+          'warning'
+
+        );
+
+        // Não limpa o formulário: o modo no-cors não confirma a gravação.
+
+        // Confira a planilha antes de tentar novamente.
+
+      } catch (error) {
+
+        showNotice(
+
+          'Não foi possível enviar a solicitação. Verifique sua conexão e se o Apps Script está publicado como Aplicativo da Web com acesso autorizado.',
+
+          'error'
+
+        );
+
+      } finally {
+
+        setSending(false);
+
+      }
+
+    });
+
+
+  
+  </script>
+ </body>
+</html>
