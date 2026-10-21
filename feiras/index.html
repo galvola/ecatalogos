@@ -5,12 +5,13 @@
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <meta content="#7200b8" name="theme-color"/>
   <title>
-   Prospec&ccedil;&atilde;o Feiras | eCat&aacute;logos
+   Prospecção Feiras | eCatálogos
   </title>
   <script src="https://cdn.tailwindcss.com">
   </script>
   <script>
-   tailwind.config = {
+   
+    tailwind.config = {
 
       theme: {
 
@@ -39,9 +40,13 @@
       }
 
     };
+
+
+  
   </script>
   <style>
-   body { background: radial-gradient(circle at top left, #f3e8ff 0, #f8fafc 42%, #eef2ff 100%); }
+   
+    body { background: radial-gradient(circle at top left, #f3e8ff 0, #f8fafc 42%, #eef2ff 100%); }
 
     input, select, textarea { outline: none; }
 
@@ -68,23 +73,26 @@
     .compact-check:has(input:checked) { border-color:#a21caf; background:#faf5ff; color:#5b078e; }
 
     .compact-check input { accent-color:#7200b8; width:15px; height:15px; flex-shrink:0; }
+
+
+
+
+  
   </style>
-  <link href="./manifest.json" rel="manifest"/>
-  <meta content="yes" name="apple-mobile-web-app-capable"/>
  </head>
  <body class="min-h-screen text-slate-800 antialiased">
   <header class="bg-gradient-to-r from-brand-800 via-brand-700 to-fuchsia-600 text-white shadow-lg">
    <div class="mx-auto flex max-w-7xl items-center px-4 py-3 sm:px-6">
     <div class="flex items-center gap-3">
      <!-- Logo eCatálogos 1:1 -->
-     <img alt="Logo eCat&aacute;logos" class="w-11 h-11 sm:w-12 sm:h-12 aspect-square object-contain rounded-xl shadow-md shrink-0" src="logo.png"/>
+     <img alt="Logo eCatálogos" class="w-11 h-11 sm:w-12 sm:h-12 aspect-square object-contain rounded-xl shadow-md shrink-0" src="https://raw.githubusercontent.com/galvola/ecatalogos/refs/heads/main/feiras/logo.png"/> 
      <!-- Informações -->
      <div class="flex flex-col justify-center">
       <p class="text-xs font-semibold uppercase tracking-[.18em] text-purple-100">
-       eCat&aacute;logos
+       eCatálogos
       </p>
       <h1 class="text-base font-bold leading-tight sm:text-lg">
-       Prospec&ccedil;&atilde;o de Feiras
+       Prospecção de Feiras
       </h1>
      </div>
     </div>
@@ -97,40 +105,11 @@
       Novo contato comercial
      </h2>
      <p class="mt-1 max-w-2xl text-xs text-slate-600">
-      Registre empresas conhecidas nas feiras e organize os pr&oacute;ximos passos da prospec&ccedil;&atilde;o.
+      Registre empresas conhecidas nas feiras e organize os próximos passos da prospecção.
      </p>
     </div>
    </div>
    <div aria-live="polite" class="hidden fixed top-4 right-4 left-4 sm:left-auto sm:w-[390px] z-50 rounded-xl border px-4 py-3 text-sm shadow-2xl" id="notice" role="status">
-   </div>
-   <div aria-live="polite" class="mb-3 rounded-xl border border-purple-100 bg-white px-4 py-3 shadow-sm" id="offlinePanel">
-    <div class="flex flex-wrap items-center justify-between gap-2">
-     <div class="flex items-center gap-2">
-      <span class="rounded-lg bg-amber-100 px-2 py-1 text-xs font-semibold text-amber-900" id="connectionBadge">
-       Verificando conex&atilde;o...
-      </span>
-      <span class="text-xs text-slate-600">
-       Pendentes:
-       <strong id="pendingCount">
-        0
-       </strong>
-      </span>
-      <span class="text-xs text-slate-600">
-       Em an&aacute;lise:
-       <strong id="reviewCount">
-        0
-       </strong>
-      </span>
-     </div>
-     <button class="rounded-lg bg-brand-700 px-3 py-2 text-xs font-bold text-white disabled:opacity-50" id="syncBtn" type="button">
-      Sincronizar agora
-     </button>
-    </div>
-    <p class="mt-2 text-xs text-slate-500" id="syncMessage">
-     Os cadastros s&atilde;o salvos neste dispositivo antes do envio.
-    </p>
-    <div class="mt-2 hidden space-y-1 text-xs" id="reviewList">
-    </div>
    </div>
    <form class="overflow-hidden rounded-2xl border border-white bg-white shadow-soft" id="leadForm">
     <div class="border-b border-slate-100 bg-slate-50/80 px-4 py-2 sm:px-5">
@@ -140,11 +119,11 @@
         Dados da empresa
        </h3>
        <p class="mt-0.5 text-xs text-slate-500">
-        Os campos com * s&atilde;o obrigat&oacute;rios.
+        Os campos com * são obrigatórios.
        </p>
       </div>
       <span class="rounded-lg bg-purple-100 px-2 py-1 text-xs font-bold text-brand-800">
-       Cadastro r&aacute;pido
+       Cadastro rápido
       </span>
      </div>
     </div>
@@ -154,7 +133,7 @@
        <span class="flex h-5 w-5 items-center justify-center rounded-lg bg-purple-100 text-sm text-brand-700">
         1
        </span>
-       Identifica&ccedil;&atilde;o
+       Identificação
       </h4>
       <div class="grid grid-cols-2 gap-x-3 gap-y-2 lg:grid-cols-4">
        <label>
@@ -225,13 +204,13 @@
           Sim
          </option>
          <option>
-          N&atilde;o
+          Não
          </option>
          <option>
           Em desenvolvimento
          </option>
          <option>
-          N&atilde;o informado
+          Não informado
          </option>
         </select>
        </label>
@@ -243,13 +222,13 @@
        </label>
        <label>
         <span class="field-label">
-         N&uacute;mero de representantes
+         Número de representantes
         </span>
         <input class="field" min="0" name="representantes" placeholder="Ex.: 15" step="1" type="number"/>
        </label>
        <label>
         <span class="field-label">
-         N&uacute;mero de lojistas
+         Número de lojistas
         </span>
         <input class="field" min="0" name="lojistas" placeholder="Ex.: 120" step="1" type="number"/>
        </label>
@@ -259,8 +238,8 @@
         </legend>
         <div class="grid grid-cols-1 gap-1.5 rounded-lg border border-slate-200 bg-slate-50 p-2 sm:grid-cols-3">
          <label class="compact-check">
-          <input name="produtosSelecionados" type="checkbox" value="For&ccedil;a de Venda"/>
-          For&ccedil;a de Venda
+          <input name="produtosSelecionados" type="checkbox" value="Força de Venda"/>
+          Força de Venda
          </label>
          <label class="compact-check">
           <input name="produtosSelecionados" type="checkbox" value="eCommerce B2B"/>
@@ -284,7 +263,7 @@
       <div class="grid grid-cols-1 gap-x-3 gap-y-2 grid-cols-2">
        <label>
         <span class="field-label">
-         Status da prospec&ccedil;&atilde;o
+         Status da prospecção
         </span>
         <select class="field" name="status">
          <option value="">
@@ -294,13 +273,13 @@
           Novo contato
          </option>
          <option>
-          Em negocia&ccedil;&atilde;o
+          Em negociação
          </option>
          <option>
           Aguardando retorno
          </option>
          <option>
-          Reuni&atilde;o agendada
+          Reunião agendada
          </option>
          <option>
           Convertido
@@ -312,32 +291,32 @@
        </label>
        <label>
         <span class="field-label">
-         Pr&oacute;ximo contato
+         Próximo contato
         </span>
         <input class="field" name="proximoContato" type="date"/>
        </label>
        <label class="col-span-2">
         <span class="field-label">
-         Observa&ccedil;&otilde;es
+         Observações
         </span>
-        <textarea class="field resize-y" maxlength="3000" name="observacao" placeholder="Interesses, necessidades, pontos discutidos e pr&oacute;ximos passos..."></textarea>
+        <textarea class="field resize-y" maxlength="3000" name="observacao" placeholder="Interesses, necessidades, pontos discutidos e próximos passos..."></textarea>
        </label>
       </div>
      </section>
      <div class="flex flex-col-reverse gap-2 border-t border-slate-100 pt-3 sm:flex-row sm:items-center sm:justify-between">
       <button class="rounded-xl border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-600 transition hover:bg-slate-50" type="reset">
-       Limpar formul&aacute;rio
+       Limpar formulário
       </button>
       <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-700 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-purple-200 transition hover:bg-brand-800 disabled:cursor-wait disabled:opacity-60" id="submitBtn" type="submit">
        <span id="btnText">
         Cadastrar empresa
        </span>
        <span aria-hidden="true">
-        &rarr;
+        →
        </span>
-      </button>
+      </button> 
      </div>
-<center>
+     <center>
     <p class="text-xs leading-relaxed text-slate-500">
       Link para o Google Planilhas: <a href="https://docs.google.com/spreadsheets/d/1Oy1rGFE9TiD4Y8uRy5Y6w6VM4e6gGp1J-tZO-SbCbkg/edit?gid=0#gid=0" target="_blank"><b>Clique Aqui</b></a>.
     </p>
@@ -347,328 +326,285 @@
 
   </main>
   <script>
-   "use strict";
+   
+    // IMPORTANTE:
 
-// Publique o Code.gs atualizado e mantenha a URL /exec da implantação.
-const API_URL = 'https://script.google.com/macros/s/AKfycbwQ0_1eFa6jgMkHdZLRbyh_WarPLsA8zk9mpC8edUgOTH9TaZEuW-EKBkJdkBZnbE8h/exec';
-const DB_NAME = 'ecatalogos-offline-v1';
-const STORE = 'cadastros';
-const FEIRAS_CACHE = 'ecatalogos-feiras-v1';
-const RETRY_MS = 45000;
+    // 1) Publique o Apps Script como Aplicativo da Web.
 
-const form = document.getElementById('leadForm');
-const feiraSelect = document.getElementById('feiraSelect');
-const notice = document.getElementById('notice');
-const button = document.getElementById('submitBtn');
-const buttonText = document.getElementById('btnText');
-const possuiApp = document.getElementById('possuiApp');
-const nomeApp = document.getElementById('nomeApp');
-const nomeAppBox = document.getElementById('nomeAppBox');
-const pendingCount = document.getElementById('pendingCount');
-const reviewCount = document.getElementById('reviewCount');
-const reviewList = document.getElementById('reviewList');
-const syncBtn = document.getElementById('syncBtn');
-const syncMessage = document.getElementById('syncMessage');
-const connectionBadge = document.getElementById('connectionBadge');
-let toastTimer;
-let syncing = false;
-let dbPromise;
-let callbackSequence = 0;
+    // 2) Use a URL terminada em /exec (não /dev).
 
-function showNotice(message, type = 'warning') {
-  clearTimeout(toastTimer);
-  notice.className = 'fixed top-4 right-4 left-4 sm:left-auto sm:w-[390px] z-50 rounded-xl border px-4 py-3 text-sm shadow-2xl ' +
-    (type === 'success' ? 'border-green-200 bg-green-50 text-green-900' :
-      type === 'warning' ? 'border-amber-200 bg-amber-50 text-amber-900' :
-        'border-red-200 bg-red-50 text-red-900');
-  notice.replaceChildren();
-  const wrap = document.createElement('div');
-  wrap.className = 'flex items-start gap-3';
-  const symbol = document.createElement('span');
-  symbol.className = 'text-xl leading-none';
-  symbol.textContent = type === 'success' ? '✓' : type === 'warning' ? '!' : '×';
-  const messageNode = document.createElement('span');
-  messageNode.className = 'flex-1 leading-snug';
-  messageNode.textContent = message;
-  const close = document.createElement('button');
-  close.type = 'button';
-  close.className = 'text-lg leading-none opacity-70 hover:opacity-100';
-  close.setAttribute('aria-label', 'Fechar aviso');
-  close.textContent = '×';
-  close.addEventListener('click', () => { clearTimeout(toastTimer); notice.classList.add('hidden'); });
-  wrap.append(symbol, messageNode, close);
-  notice.append(wrap);
-  toastTimer = setTimeout(() => notice.classList.add('hidden'), 6000);
-}
+    // 3) Para testar, substitua esta URL pela URL /exec da sua implantação.
 
-function updateConnection() {
-  const online = navigator.onLine;
-  connectionBadge.textContent = online ? 'Internet detectada' : 'Modo offline';
-  connectionBadge.className = online
-    ? 'rounded-lg bg-green-100 px-2 py-1 text-xs font-semibold text-green-900'
-    : 'rounded-lg bg-amber-100 px-2 py-1 text-xs font-semibold text-amber-900';
-  syncBtn.disabled = !online || syncing;
-}
+    const API_URL = 'https://script.google.com/macros/s/AKfycbwQ0_1eFa6jgMkHdZLRbyh_WarPLsA8zk9mpC8edUgOTH9TaZEuW-EKBkJdkBZnbE8h/exec';
 
-function openDB() {
-  if (!('indexedDB' in window)) return Promise.reject(new Error('Este navegador não suporta IndexedDB.'));
-  if (!dbPromise) {
-    dbPromise = new Promise((resolve, reject) => {
-      const req = indexedDB.open(DB_NAME, 1);
-      req.onupgradeneeded = () => {
-        const db = req.result;
-        if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE, { keyPath: 'id' });
-      };
-      req.onsuccess = () => resolve(req.result);
-      req.onerror = () => reject(req.error);
-      req.onblocked = () => reject(new Error('Feche outras abas deste formulário e tente novamente.'));
-    }).catch(err => { dbPromise = null; throw err; });
-  }
-  return dbPromise;
-}
 
-async function dbAction(mode, action) {
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE, mode);
-    const store = tx.objectStore(STORE);
-    let result;
-    try {
-      const req = action(store);
-      req.onsuccess = () => { result = req.result; };
-      req.onerror = () => reject(req.error);
-    } catch (err) { reject(err); return; }
-    tx.oncomplete = () => resolve(result);
-    tx.onerror = () => reject(tx.error);
-    tx.onabort = () => reject(tx.error || new Error('Transação cancelada.'));
-  });
-}
 
-const putRecord = record => dbAction('readwrite', store => store.put(record));
-const getRecords = () => dbAction('readonly', store => store.getAll());
-const deleteRecord = id => dbAction('readwrite', store => store.delete(id));
+    const feiraSelect = document.getElementById('feiraSelect');
 
-async function refreshQueue() {
-  const records = await getRecords();
-  const pending = records.filter(r => r.state === 'pending');
-  const review = records.filter(r => r.state === 'review');
-  pendingCount.textContent = String(pending.length);
-  reviewCount.textContent = String(review.length);
-  reviewList.replaceChildren();
-  reviewList.classList.toggle('hidden', review.length === 0);
-  for (const record of review) {
-    const item = document.createElement('div');
-    item.className = 'flex flex-wrap items-center justify-between gap-2 rounded-lg border border-amber-200 bg-amber-50 p-2';
-    const label = document.createElement('span');
-    label.textContent = `${record.data.empresa} — ${record.error || 'Verifique o cadastro'}`;
-    const retry = document.createElement('button');
-    retry.type = 'button';
-    retry.className = 'font-semibold text-brand-800 underline';
-    retry.textContent = 'Tentar novamente';
-    retry.addEventListener('click', async () => {
-      record.state = 'pending';
-      record.error = '';
-      await putRecord(record);
-      await refreshQueue();
-      synchronize();
-    });
-    item.append(label, retry);
-    reviewList.append(item);
-  }
-  updateConnection();
-}
 
-function jsonp(params, timeoutMs = 12000) {
-  return new Promise((resolve, reject) => {
-    const callback = `ecatCb_${Date.now()}_${++callbackSequence}`;
-    const script = document.createElement('script');
-    let done = false;
-    const finish = (error, result) => {
-      if (done) return;
-      done = true;
-      clearTimeout(timer);
-      script.remove();
-      // Retém callback inofensivo temporariamente para evitar erro em resposta atrasada.
-      window[callback] = () => {};
-      setTimeout(() => { delete window[callback]; }, 30000);
-      if (error) reject(error); else resolve(result);
-    };
-    const timer = setTimeout(() => finish(new Error('Tempo limite ao consultar a planilha.')), timeoutMs);
-    window[callback] = response => finish(null, response);
-    script.onerror = () => finish(new Error('Falha ao acessar a API.'));
-    const url = new URL(API_URL);
-    for (const [key, value] of Object.entries(params)) url.searchParams.set(key, value);
-    url.searchParams.set('callback', callback);
-    url.searchParams.set('_', String(Date.now()));
-    script.src = url.toString();
-    document.head.append(script);
-  });
-}
 
-function setFeiras(feiras) {
-  const current = feiraSelect.value;
-  feiraSelect.replaceChildren(new Option('Selecione a feira...', ''));
-  feiras.forEach(name => feiraSelect.add(new Option(name, name)));
-  if (feiras.includes(current)) feiraSelect.value = current;
-  feiraSelect.disabled = feiras.length === 0;
-}
 
-async function loadFeiras() {
-  try {
-    const cached = JSON.parse(localStorage.getItem(FEIRAS_CACHE) || '[]');
-    if (Array.isArray(cached) && cached.length) setFeiras(cached);
-  } catch (_) { /* Armazenamento local indisponível. */ }
-  if (!navigator.onLine) {
-    if (feiraSelect.disabled) showNotice('Sem conexão e sem lista de feiras salva. Abra uma vez com internet.', 'warning');
-    return;
-  }
-  try {
-    const response = await jsonp({ acao: 'feiras' });
-    if (!response?.sucesso || !Array.isArray(response.feiras)) throw new Error(response?.mensagem || 'Resposta inválida.');
-    setFeiras(response.feiras);
-    try { localStorage.setItem(FEIRAS_CACHE, JSON.stringify(response.feiras)); } catch (_) {}
-  } catch (err) {
-    if (feiraSelect.disabled) showNotice('Não foi possível carregar as feiras: ' + err.message, 'error');
-  }
-}
+    // Busca somente as opções da aba Configurações (coluna A, a partir de A2).
 
-function atualizarApp() {
-  const show = possuiApp.value === 'Sim';
-  nomeAppBox.classList.toggle('hidden', !show);
-  nomeApp.required = show;
-  if (!show) nomeApp.value = '';
-}
+    function carregarFeiras() {
 
-function createPayload() {
-  const data = Object.fromEntries(new FormData(form).entries());
-  data.empresa = (data.empresa || '').trim();
-  data.produtoDesejado = [...form.querySelectorAll('input[name="produtosSelecionados"]:checked')]
-    .map(input => input.value).join(', ');
-  delete data.produtosSelecionados;
-  data.app = data.possuiApp === 'Sim' ? 'Sim - ' + data.nomeApp.trim() : (data.possuiApp || '');
-  delete data.possuiApp;
-  delete data.nomeApp;
-  data.idCadastro = crypto.randomUUID();
-  return data;
-}
+      const callback = 'receberFeiras_' + Date.now();
 
-async function checkSaved(id) {
-  const response = await jsonp({ acao: 'status', id });
-  if (!response?.sucesso || typeof response.encontrado !== 'boolean')
-    throw new Error(response?.mensagem || 'Não foi possível confirmar o cadastro.');
-  return response.encontrado;
-}
+      const script = document.createElement('script');
 
-async function sendRecord(record) {
-  // Antes de reenviar, consulta o ID: evita duplicar mesmo se a resposta anterior se perdeu.
-  if (await checkSaved(record.id)) {
-    await deleteRecord(record.id);
-    return 'confirmed';
-  }
-  try {
-    await fetch(API_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(record.data)
-    });
-  } catch (_) {
-    // O POST pode ter sido recebido mesmo quando o navegador sinaliza erro.
-  }
-  // A confirmação é a consulta ao ID na planilha, nunca o resultado opaco do POST.
-  for (let attempt = 0; attempt < 3; attempt++) {
-    await new Promise(resolve => setTimeout(resolve, 1300 + attempt * 1500));
-    if (await checkSaved(record.id)) {
-      await deleteRecord(record.id);
-      return 'confirmed';
-    }
-  }
-  return 'pending';
-}
+      let finalizado = false;
 
-async function synchronize() {
-  if (syncing || !navigator.onLine) return;
-  syncing = true;
-  updateConnection();
-  syncMessage.textContent = 'Verificando cadastros pendentes...';
-  try {
-    const records = (await getRecords()).filter(r => r.state === 'pending');
-    let confirmed = 0;
-    for (const record of records) {
-      if (!navigator.onLine) break;
-      try {
-        const outcome = await sendRecord(record);
-        if (outcome === 'confirmed') confirmed++;
-        else {
-          syncMessage.textContent = 'Ainda aguardando confirmação da planilha. Tentaremos novamente.';
-          break; // Evita vários envios concorrentes em conexão instável.
+      const encerrar = (erro) => {
+
+        if (finalizado) return;
+
+        finalizado = true;
+
+        clearTimeout(timeout);
+
+        script.remove();
+
+        delete window[callback];
+
+        if (erro) {
+
+          feiraSelect.replaceChildren(new Option('Erro ao carregar feiras — atualize a página', ''));
+
+          feiraSelect.disabled = true;
+
+          showNotice(erro, 'error');
+
         }
-      } catch (err) {
-        syncMessage.textContent = 'Sem confirmação do servidor. Os dados continuam guardados.';
-        break;
-      }
-      await refreshQueue();
+
+      };
+
+      const timeout = setTimeout(() => encerrar('Não foi possível carregar as feiras. Confira a implantação /exec e a aba Configurações.'), 12000);
+
+      window[callback] = (resposta) => {
+
+        if (finalizado) return;
+
+        if (!resposta || !resposta.sucesso || !Array.isArray(resposta.feiras)) {
+
+          encerrar(resposta?.mensagem || 'Falha ao buscar feiras.');
+
+          return;
+
+        }
+
+        feiraSelect.replaceChildren(new Option('Selecione a feira...', ''));
+
+        resposta.feiras.forEach(nome => feiraSelect.add(new Option(nome, nome)));
+
+        feiraSelect.disabled = false;
+
+        encerrar();
+
+        if (!resposta.feiras.length) showNotice('A aba Configurações não possui feiras em A2:A.', 'warning');
+
+      };
+
+      script.onerror = () => encerrar('Erro ao acessar o Apps Script. Verifique a URL /exec e o acesso da implantação.');
+
+      script.src = API_URL + '?acao=feiras&callback=' + encodeURIComponent(callback);
+
+      document.head.appendChild(script);
+
     }
-    const remaining = (await getRecords()).filter(r => r.state === 'pending').length;
-    if (confirmed) showNotice(`${confirmed} cadastro(s) confirmado(s) na planilha.`, 'success');
-    if (!remaining) syncMessage.textContent = 'Todos os cadastros pendentes foram confirmados na planilha.';
-  } catch (err) {
-    syncMessage.textContent = 'Erro ao consultar fila local: ' + err.message;
-  } finally {
-    syncing = false;
-    await refreshQueue().catch(() => {});
-    updateConnection();
-  }
-}
 
-form.addEventListener('submit', async event => {
-  event.preventDefault();
-  if (!form.reportValidity()) return;
-  if (!API_URL.endsWith('/exec')) { showNotice('Configure a URL /exec do Apps Script.', 'error'); return; }
-  button.disabled = true;
-  buttonText.textContent = 'Salvando...';
-  try {
-    const data = createPayload();
-    if (!data.empresa || !data.feira) throw new Error('Informe empresa e feira.');
-    await putRecord({ id: data.idCadastro, data, state: 'pending', createdAt: Date.now() });
-    form.reset();
+    feiraSelect.disabled = true;
+
+    carregarFeiras();
+
+
+
+    const form = document.getElementById('leadForm');
+
+    const button = document.getElementById('submitBtn');
+
+    const buttonText = document.getElementById('btnText');
+
+    const notice = document.getElementById('notice');
+
+    const possuiApp = document.getElementById('possuiApp');
+
+    const nomeApp = document.getElementById('nomeApp');
+
+    const nomeAppBox = document.getElementById('nomeAppBox');
+
+    function atualizarApp() {
+
+      const mostrar = possuiApp.value === 'Sim';
+
+      nomeAppBox.classList.toggle('hidden', !mostrar);
+
+      nomeApp.required = mostrar;
+
+      if (!mostrar) nomeApp.value = '';
+
+    }
+
+    possuiApp.addEventListener('change', atualizarApp);
+
+    form.addEventListener('reset', () => setTimeout(() => { atualizarApp(); }, 0));
+
     atualizarApp();
-    await refreshQueue();
-    showNotice('Cadastro salvo neste dispositivo. Sincronização automática ativada.', 'success');
-    syncMessage.textContent = 'Cadastro protegido na fila local; aguardando confirmação na planilha.';
-    synchronize();
-  } catch (err) {
-    showNotice('Não foi possível salvar offline: ' + err.message + '. O formulário foi mantido.', 'error');
-  } finally {
-    button.disabled = false;
-    buttonText.textContent = 'Cadastrar empresa';
-  }
-});
 
-possuiApp.addEventListener('change', atualizarApp);
-form.addEventListener('reset', () => setTimeout(atualizarApp, 0));
-syncBtn.addEventListener('click', synchronize);
-window.addEventListener('online', () => { updateConnection(); loadFeiras(); synchronize(); });
-window.addEventListener('offline', updateConnection);
-document.addEventListener('visibilitychange', () => { if (!document.hidden) synchronize(); });
-setInterval(() => { if (!document.hidden) synchronize(); }, RETRY_MS);
 
-(async function initialize() {
-  atualizarApp();
-  updateConnection();
-  try {
-    await openDB();
-    await refreshQueue();
-  } catch (err) {
-    button.disabled = true;
-    showNotice('Armazenamento offline indisponível: ' + err.message, 'error');
-  }
-  await loadFeiras();
-  synchronize();
-  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-    navigator.serviceWorker.register('./sw.js').catch(err => console.warn('Service Worker:', err));
-  }
-})();
+
+
+
+    let toastTimer;
+    function showNotice(message, type) {
+      clearTimeout(toastTimer);
+      notice.className = 'fixed top-4 right-4 left-4 sm:left-auto sm:w-[390px] z-50 rounded-xl border px-4 py-3 text-sm shadow-2xl ' +
+        (type === 'success' ? 'border-green-200 bg-green-50 text-green-900' :
+         type === 'warning' ? 'border-amber-200 bg-amber-50 text-amber-900' :
+         'border-red-200 bg-red-50 text-red-900');
+      notice.replaceChildren();
+      const wrap = document.createElement('div');
+      wrap.className = 'flex items-start gap-3';
+      const symbol = document.createElement('span');
+      symbol.className = 'text-xl leading-none';
+      symbol.textContent = type === 'success' ? '✓' : type === 'warning' ? '!' : '×';
+      const messageNode = document.createElement('span');
+      messageNode.className = 'flex-1 leading-snug';
+      messageNode.textContent = message;
+      const close = document.createElement('button');
+      close.type = 'button';
+      close.className = 'text-lg leading-none opacity-70 hover:opacity-100';
+      close.setAttribute('aria-label', 'Fechar aviso');
+      close.textContent = '×';
+      close.addEventListener('click', () => { clearTimeout(toastTimer); notice.classList.add('hidden'); });
+      wrap.append(symbol, messageNode, close);
+      notice.append(wrap);
+      toastTimer = setTimeout(() => notice.classList.add('hidden'), 6000);
+    }
+
+    function setSending(isSending) {
+
+      button.disabled = isSending;
+
+      buttonText.textContent = isSending ? 'Enviando...' : 'Cadastrar empresa';
+
+    }
+
+
+
+    form.addEventListener('submit', async (event) => {
+
+      event.preventDefault();
+
+      if (!form.reportValidity()) return;
+
+
+
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      data.empresa = (data.empresa || '').trim();
+
+      if (!data.feira) { showNotice('Selecione uma feira.', 'error'); return; }
+
+      // Envia todos os produtos em uma única célula da coluna L.
+
+      data.produtoDesejado = [...form.querySelectorAll('input[name="produtosSelecionados"]:checked')]
+
+        .map(input => input.value).join(', ');
+
+      delete data.produtosSelecionados;
+
+      // Mantém compatibilidade com a coluna I (App) e o Apps Script atual.
+
+      data.app = data.possuiApp === 'Sim'
+
+        ? 'Sim - ' + data.nomeApp.trim()
+
+        : (data.possuiApp || '');
+
+      delete data.possuiApp;
+
+      delete data.nomeApp;
+
+
+
+      if (!data.empresa) {
+
+        showNotice('Informe o nome da empresa.', 'error');
+
+        return;
+
+      }
+
+
+
+      if (!API_URL || !API_URL.endsWith("/exec")) {
+
+        showNotice('Configure a URL publicada do Apps Script, terminada em /exec.', 'error');
+
+        return;
+
+      }
+
+
+
+      setSending(true);
+
+      try {
+
+        // Apps Script ContentService não permite configurar cabeçalhos CORS.
+
+        // O modo no-cors permite enviar o POST de uma página GitHub Pages,
+
+        // mas o navegador não libera a resposta para leitura. Portanto,
+
+        // não é possível confirmar o resultado automaticamente nesta página.
+
+        await fetch(API_URL, {
+
+          method: 'POST',
+
+          mode: 'no-cors',
+
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+
+          body: JSON.stringify(data)
+
+        });
+
+
+
+        showNotice(
+
+          'Envio concluído no navegador. Confira na planilha se o cadastro foi gravado; a API não permite confirmar o salvamento neste modo.',
+
+          'warning'
+
+        );
+
+        // Não limpa o formulário: o modo no-cors não confirma a gravação.
+
+        // Confira a planilha antes de tentar novamente.
+
+      } catch (error) {
+
+        showNotice(
+
+          'Não foi possível enviar a solicitação. Verifique sua conexão e se o Apps Script está publicado como Aplicativo da Web com acesso autorizado.',
+
+          'error'
+
+        );
+
+      } finally {
+
+        setSending(false);
+
+      }
+
+    });
+
+
+  
   </script>
  </body>
 </html>
