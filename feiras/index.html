@@ -951,10 +951,11 @@
     function definirVideo(file) {
       if (!file) return;
       if (!/^video\//.test(file.type)) {
-        showNotice('Selecione um arquivo de vídeo válido.', 'error'); return;
+        showNotice('Selecione um arquivo de vídeo válido.', 'error'); videoInput.value = ''; return;
       }
       if (file.size > MAX_VIDEO_BYTES) {
         showNotice('Vídeo acima de 4 MB. Grave um vídeo mais curto ou comprima o arquivo.', 'error');
+        videoInput.value = '';
         return;
       }
       selectedVideo = file;
@@ -1163,7 +1164,7 @@ let toastTimer;
 
 
 
-      // Envia todos os produtos em uma única célula da coluna L.
+      // Envia todos os produtos em uma única célula da coluna M.
 
 
 
@@ -1179,7 +1180,7 @@ let toastTimer;
 
 
 
-      // Mantém compatibilidade com a coluna I (App) e o Apps Script atual.
+      // Mantém compatibilidade com a coluna J (App) do Apps Script.
 
 
 
@@ -1259,7 +1260,7 @@ setSending(true);
           if (selectedVideo) {
             data.video = {
               nome: selectedVideo.name,
-              tipo: selectedVideo.type,
+              tipo: selectedVideo.type || (selectedVideo.name.toLowerCase().endsWith('.mp4') ? 'video/mp4' : selectedVideo.name.toLowerCase().endsWith('.mov') ? 'video/quicktime' : 'video/webm'),
               base64: await videoComoBase64(selectedVideo)
             };
           }
@@ -1267,19 +1268,7 @@ setSending(true);
 
 
 
-        // Apps Script ContentService não permite configurar cabeçalhos CORS.
-
-
-
-        // O modo no-cors permite enviar o POST de uma página GitHub Pages,
-
-
-
-        // mas o navegador não libera a resposta para leitura. Portanto,
-
-
-
-        // não é possível confirmar o resultado automaticamente nesta página.
+        // O POST é opaco (no-cors); a confirmação é consultada por ID via JSONP.
 
 
 
@@ -1361,7 +1350,7 @@ setSending(true);
 
 
 
-a
+
 
   </script>
 
