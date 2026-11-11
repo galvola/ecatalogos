@@ -1013,14 +1013,29 @@
     stopRecording.addEventListener('click', () => {
       if (recorder?.state === 'recording') recorder.stop();
     });
-    function videoComoBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onerror = () => reject(new Error('Falha ao ler vídeo.'));
-        reader.onload = () => resolve(String(reader.result).split(',')[1]);
-        reader.readAsDataURL(file);
-      });
-    }
+function videoComoBase64(arquivo) {
+  return new Promise((resolve, reject) => {
+    const leitor = new FileReader();
+
+    leitor.onload = () => {
+      const resultado = String(leitor.result);
+      const base64 = resultado.split(',')[1];
+
+      if (!base64 || base64.length < 100) {
+        reject(new Error('Vídeo convertido incorretamente.'));
+        return;
+      }
+
+      resolve(base64);
+    };
+
+    leitor.onerror = () => reject(
+      new Error('Falha ao ler o vídeo.')
+    );
+
+    leitor.readAsDataURL(arquivo);
+  });
+}
     form?.addEventListener('reset', () => {
       if (recorder?.state === 'recording') recorder.stop();
       selectedVideo = null; limparPrevia(); videoInput.value = '';
@@ -1268,8 +1283,17 @@ setSending(true);
 
 
 
-        // O POST é opaco (no-cors); a confirmação é consultada por ID via JSONP.
+if (selectedVideo) {
+  console.log('DIAGNÓSTICO DO UPLOAD', {
+    tamanhoArquivo: selectedVideo.size,
+    tamanhoBase64: data.video.base64.length,
+    tipoVideo: data.video.tipo
+  });
 
+  if (data.video.base64.length < 100) {
+    throw new Error('Base64 incompleto. Envio cancelado.');
+  }
+}
 
 
         data.envioId = (typeof crypto.randomUUID === 'function' ? crypto.randomUUID() :
