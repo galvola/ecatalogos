@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>eCatálogos — Prospecção</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {theme:{extend:{colors:{brand:{50:'#fbf5ff',100:'#f3e8ff',600:'#8700c2',700:'#7200b8',800:'#5b078e'}},boxShadow:{card:'0 10px 30px -18px rgba(30,14,53,.22)'}}}};
+  </script>
+  <style>
+    * {box-sizing:border-box} body {font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;background:#f8f8fc;color:#1b1b29}
+    input,select,button{outline-offset:2px} .ctrl{border:1px solid #e5e5ee;background:#fff;border-radius:12px;padding:11px 13px;font-size:14px;min-height:44px;width:100%}
+    .ctrl:focus{border-color:#8700c2;outline:3px solid #f3e8ff}.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:7px;font-size:11px;font-weight:700}
+    .status-novo{background:#fff3cd;color:#886114}.status-em{background:#ede9fe;color:#6342b7}.status-convertido{background:#dcfce7;color:#166534}.status-perdido{background:#fee2e2;color:#991b1b}
+    .status-outro{background:#eaf1f9;color:#40546c}.card:hover{border-color:#d5b3ea;box-shadow:0 12px 28px -20px rgba(60,24,85,.4)}
+    .shimmer{animation:pulse 1.7s infinite alternate}@keyframes pulse{to{opacity:.45}}
+    .scrollbar::-webkit-scrollbar{width:8px}.scrollbar::-webkit-scrollbar-thumb{background:#dcd5e6;border-radius:8px}
+    dialog::backdrop{background:rgba(20,14,35,.58);backdrop-filter:blur(2px)}
+  </style>
+</head>
+<body class="min-h-screen">
+  <header class="bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex gap-4 justify-between items-center">
+      <div class="flex items-center gap-3 min-w-0">
+        <img src="https://raw.githubusercontent.com/galvola/ecatalogos/refs/heads/main/feiras/logo.png" alt="Logo eCatálogos" class="w-11 h-11 rounded-xl object-contain shrink-0">
+        <div class="min-w-0"><div class="text-[11px] uppercase tracking-[.16em] text-brand-700 font-bold">eCatálogos</div><h1 class="font-bold text-lg sm:text-xl tracking-tight truncate">Prospecção de Feiras</h1></div>
+      </div>
+      <button id="refresh" class="shrink-0 text-sm font-semibold border border-slate-200 rounded-xl px-4 py-2.5 hover:bg-slate-50">↻ <span class="hidden sm:inline">Atualizar dados</span></button>
+    </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-7 space-y-6">
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-2"><div><p class="text-xs font-bold uppercase tracking-wider text-brand-700">Visão comercial</p><h2 class="text-2xl sm:text-3xl font-bold tracking-tight mt-1">Seus contatos, organizados.</h2><p class="text-slate-500 text-sm mt-1">Acompanhe oportunidades e consulte informações sem abrir a planilha.</p></div><span id="updated" class="text-xs text-slate-500">Carregando dados…</span></div>
+    <section id="metrics" class="grid grid-cols-2 lg:grid-cols-4 gap-3" aria-label="Indicadores">
+      <div class="bg-white rounded-2xl border border-slate-200 p-4 shimmer h-24"></div><div class="bg-white rounded-2xl border border-slate-200 p-4 shimmer h-24"></div><div class="bg-white rounded-2xl border border-slate-200 p-4 shimmer h-24"></div><div class="bg-white rounded-2xl border border-slate-200 p-4 shimmer h-24"></div>
+    </section>
+    <section class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-card space-y-3" aria-label="Busca e filtros">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-3">
+        <label class="lg:col-span-5"><span class="block text-xs font-bold text-slate-600 mb-1.5">Buscar contato</span><input id="search" class="ctrl" placeholder="Empresa, pessoa, e-mail, telefone…" autocomplete="off"></label>
+        <label class="lg:col-span-3"><span class="block text-xs font-bold text-slate-600 mb-1.5">Feira</span><select id="feira" class="ctrl"><option value="">Todas as feiras</option></select></label>
+        <label class="lg:col-span-2"><span class="block text-xs font-bold text-slate-600 mb-1.5">Status</span><select id="status" class="ctrl"><option value="">Todos</option></select></label>
+        <label class="lg:col-span-2"><span class="block text-xs font-bold text-slate-600 mb-1.5">Ordenação</span><select id="sort" class="ctrl"><option value="recentes">Mais recentes</option><option value="empresa">Empresa A–Z</option><option value="proximo">Próximo contato</option></select></label>
+      </div>
+      <div class="flex items-center justify-between flex-wrap gap-2"><div id="count" class="text-sm text-slate-500">Buscando contatos…</div><button id="clear" class="text-xs font-semibold text-brand-700 hover:underline">Limpar filtros</button></div>
+    </section>
+    <section id="list" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3" aria-live="polite"></section>
+    <div id="empty" class="hidden py-16 rounded-2xl border border-dashed border-slate-300 text-center bg-white"><p class="text-lg font-bold">Nenhum contato encontrado</p><p class="text-sm text-slate-500 mt-2">Ajuste a busca ou os filtros.</p></div>
+    <div id="error" class="hidden border border-red-200 bg-red-50 text-red-800 p-4 rounded-2xl text-sm" role="alert"></div>
+  </main>
+  <dialog id="detail" class="w-[calc(100%-24px)] max-w-2xl p-0 rounded-2xl border-0 shadow-2xl max-h-[90vh]">
+    <div class="sticky top-0 bg-white border-b border-slate-200 p-5 flex justify-between items-start gap-4 z-10"><div><p class="uppercase text-[10px] tracking-widest font-bold text-brand-700">Ficha do contato</p><h3 id="dEmpresa" class="text-xl font-bold mt-1 break-words"></h3><p id="dNome" class="text-sm text-slate-500 mt-1"></p></div><button id="close" aria-label="Fechar" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-xl shrink-0">×</button></div>
+    <div id="dBody" class="p-5 space-y-5 overflow-auto scrollbar" style="max-height:calc(90vh - 110px)"></div>
+  </dialog>
+  <script>
+    'use strict';
+    const state = {items:[],filtered:[]};
+    const $ = id => document.getElementById(id);
+    const clean = val => (String(val == null ? '' : val).trim() || 'Não informado');
+    const norm = text => String(text || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    function el(tag, cls, text) {const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=text;return node;}
+    function txt(tag, cls, value) {return el(tag,cls,clean(value));}
+    function field(label,value) {const root=el('div','min-w-0');root.append(el('dt','text-xs font-semibold text-slate-500 mb-1',label),txt('dd','text-sm font-medium break-words whitespace-pre-wrap',value));return root;}
+    function badgeClass(value) {const s=norm(value);return s.includes('novo')?'status-novo':s.includes('convertido')?'status-convertido':s.includes('perdido')?'status-perdido':s.includes('negoci')||s.includes('aguardando')?'status-em':'status-outro';}
+    function fillSelect(id, key, all) {const select=$(id),prev=select.value;select.replaceChildren(new Option(all,''));const vals=[...new Set(state.items.map(x=>x[key]).filter(x=>x&&x!=='*'))].sort((a,b)=>a.localeCompare(b,'pt-BR'));vals.forEach(x=>select.add(new Option(x,x)));if(vals.includes(prev))select.value=prev;}
+    function updateStats() {const total=state.items.length,feiras=new Set(state.items.map(x=>x.feira).filter(Boolean)).size,comVideo=state.items.filter(x=>!!x.video).length,emAndamento=state.items.filter(x=>/negocia|aguardando|reuni/i.test(x.status)).length;const data=[['Contatos cadastrados',total],['Feiras registradas',feiras],['Em acompanhamento',emAndamento],['Vídeos vinculados',comVideo]];$('metrics').replaceChildren(...data.map(([name,n])=>{const c=el('div','bg-white rounded-2xl border border-slate-200 p-4 shadow-card');c.append(el('div','text-xs font-semibold text-slate-500',name),el('div','mt-2 text-3xl font-bold tracking-tight',String(n)));return c;}));}
+    function link(text,url,cls) {const a=el('a',cls,text);a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a;}
+    function details(item) {
+      $('dEmpresa').textContent=clean(item.empresa);$('dNome').textContent=clean(item.nome)+' · '+clean(item.cargo);
+      const root=$('dBody');root.replaceChildren();
+      const status=el('div','flex gap-2 flex-wrap items-center');status.append(el('span','chip '+badgeClass(item.status),clean(item.status)),el('span','chip bg-slate-100 text-slate-600',clean(item.feira)),el('span','chip bg-slate-100 text-slate-600','Linha '+item.linha));root.append(status);
+      const grid=el('dl','grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4');
+      [['Ramo',item.ramo],['Data de cadastro',item.data],['Telefone',item.telefone],['E-mail',item.email],['ERP',item.erp],['Aplicativo',item.app],['Representantes',item.representantes],['Lojistas',item.lojistas],['Produtos desejados',item.produto],['Próximo contato',item.proximoContato]].forEach(([k,v])=>grid.append(field(k,v)));root.append(grid);
+      const obs=el('div','border-t border-slate-200 pt-4');obs.append(el('h4','font-semibold text-sm mb-2','Observações'),txt('p','text-sm text-slate-600 whitespace-pre-wrap break-words leading-relaxed',item.observacao));root.append(obs);
+      const actions=el('div','flex flex-wrap gap-2 border-t border-slate-200 pt-4');
+      if(item.video) actions.append(link('▶ Assistir vídeo',item.video,'rounded-xl px-4 py-3 font-bold text-sm text-white bg-brand-700 hover:bg-brand-800'));
+      const tel=String(item.telefone||'').replace(/\D/g,'');if(tel.length>=10&&tel.length<=13)actions.append(link('WhatsApp','https://wa.me/'+(tel.startsWith('55')?tel:'55'+tel),'rounded-xl px-4 py-3 font-semibold text-sm bg-green-50 text-green-800 border border-green-200'));
+      if(item.email&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(item.email))actions.append(link('Enviar e-mail','mailto:'+encodeURIComponent(item.email),'rounded-xl px-4 py-3 font-semibold text-sm bg-slate-100 text-slate-800'));
+      root.append(actions);$('detail').showModal();
+    }
+    function card(item) {
+      const c=el('article','card bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col gap-3 transition-colors shadow-card');
+      const top=el('div','flex justify-between gap-2 items-start'),title=el('div','min-w-0');title.append(txt('h3','text-base font-bold break-words leading-snug',item.empresa),txt('p','text-xs text-slate-500 mt-1 break-words',item.nome));top.append(title,el('span','chip shrink-0 '+badgeClass(item.status),clean(item.status)));c.append(top);
+      const tags=el('div','flex gap-1.5 flex-wrap');if(item.feira)tags.append(el('span','chip bg-purple-50 text-brand-800',item.feira));if(item.ramo)tags.append(el('span','chip bg-slate-100 text-slate-600',item.ramo));if(item.video)tags.append(el('span','chip bg-green-50 text-green-700','▶ Vídeo'));c.append(tags);
+      const middle=el('div','text-sm text-slate-600 flex-1 space-y-1.5');middle.append(el('p','truncate','Cargo: '+clean(item.cargo)),el('p','truncate','Telefone: '+clean(item.telefone)),el('p','truncate','Próximo contato: '+clean(item.proximoContato)));c.append(middle);
+      const row=el('div','pt-3 border-t border-slate-100 flex items-center justify-between gap-3'),small=el('span','text-xs text-slate-400','Linha '+item.linha),btn=el('button','rounded-xl bg-brand-700 text-white px-4 py-2.5 text-sm font-bold hover:bg-brand-800','Ver detalhes');btn.type='button';btn.addEventListener('click',()=>details(item));row.append(small,btn);c.append(row);return c;
+    }
+    function refreshView() {
+      const q=norm($('search').value.trim()),feira=$('feira').value,status=$('status').value;
+      let items=state.items.filter(x=>(!feira||x.feira===feira)&&(!status||x.status===status)&&(!q||[x.empresa,x.nome,x.cargo,x.telefone,x.email,x.ramo,x.erp,x.produto,x.observacao].some(v=>norm(v).includes(q))));
+      if($('sort').value==='empresa')items.sort((a,b)=>clean(a.empresa).localeCompare(clean(b.empresa),'pt-BR'));
+      else if($('sort').value==='proximo'){const key=d=>{const p=String(d||'').match(/^(\d{2})\/(\d{2})\/(\d{4})$/);return p?`${p[3]}${p[2]}${p[1]}`:'99999999'};items.sort((a,b)=>key(a.proximoContato).localeCompare(key(b.proximoContato)));}
+      else items.sort((a,b)=>b.linha-a.linha);
+      state.filtered=items;$('list').replaceChildren(...items.slice(0,150).map(card));$('empty').classList.toggle('hidden',items.length!==0);$('count').textContent=`${items.length} contato(s) encontrado(s)`+(items.length>150?' · mostrando os primeiros 150':'');
+    }
+    function load() {
+      $('refresh').disabled=true;$('refresh').classList.add('opacity-50');$('error').classList.add('hidden');$('updated').textContent='Atualizando dados…';
+      google.script.run.withSuccessHandler(items=>{state.items=items||[];fillSelect('feira','feira','Todas as feiras');fillSelect('status','status','Todos');updateStats();refreshView();$('updated').textContent='Atualizado às '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});$('refresh').disabled=false;$('refresh').classList.remove('opacity-50');}).withFailureHandler(err=>{$('error').textContent='Não foi possível carregar a planilha: '+(err.message||String(err));$('error').classList.remove('hidden');$('updated').textContent='Falha na atualização';$('refresh').disabled=false;$('refresh').classList.remove('opacity-50');}).carregarContatos();
+    }
+    ['search','feira','status','sort'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',refreshView));
+    $('refresh').addEventListener('click',load);$('clear').addEventListener('click',()=>{$('search').value='';$('feira').value='';$('status').value='';$('sort').value='recentes';refreshView();});$('close').addEventListener('click',()=>$('detail').close());$('detail').addEventListener('click',e=>{if(e.target===$('detail'))$('detail').close();});
+    load();
+  </script>
+</body>
+</html>
